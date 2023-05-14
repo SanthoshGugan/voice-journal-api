@@ -45,7 +45,7 @@ bash
 The backend exposes the following API endpoints:
 
 - User Authentication:
-    /api/register: Register a new user.
+    /api/register: Register a new user. (mvp)
     /api/login: Authenticate a user and generate a token for authorization.
     /api/logout: Invalidate the user's token and log them out.
 
@@ -55,10 +55,10 @@ The backend exposes the following API endpoints:
     /api/journals/:id/update: Update an existing audio journal.
     /api/journals/:id/delete: Delete a specific audio journal.
 
-- Audio File Management:
+<!-- - Audio File Management:
     /api/audio/upload: Upload an audio file for a journal.
     /api/audio/:id/download: Download the audio file for a journal.
-    /api/audio/:id/delete: Delete the audio file for a journal.
+    /api/audio/:id/delete: Delete the audio file for a journal. -->
 
 - Metadata and Tags:
     /api/journals/:id/tags: Retrieve tags associated with a journal.
