@@ -10,3 +10,10 @@ export const extractFileName = (req: Request): string => {
     }
     return null;
 }   
+
+export const getS3Url = (bucketName: string, fileName: string): string => {
+    const s3BaseUrl = 'https://s3.amazonaws.com';
+    const url = `${s3BaseUrl}/${bucketName}/${fileName}`;
+    return url;
+  }
+  

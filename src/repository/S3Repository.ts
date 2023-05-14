@@ -1,4 +1,5 @@
 import AWS from 'aws-sdk';
+import { getS3Url } from '../utils/journalUtils';
 
 export class S3Repository {
 
@@ -8,7 +9,7 @@ export class S3Repository {
         this.s3 = new AWS.S3({ region: process.env.AWS_REGION });
     }
 
-    public async uploadAudioToS3(file, filePath: string): Promise<string> {
+    public async uploadAudioToS3(file, filePath: string): Promise<void> {
 
         const bucketName = process.env.AWS_S3_BUCKET_NAME;
         let response;
@@ -44,7 +45,6 @@ export class S3Repository {
               };
             
               response = await this.s3.upload(params).promise();
-              console.log('File uploaded to S3 successfully ' + response);
         } catch (error) {
             console.log(" file type on error : " + typeof file)
             console.log(" file type on error : " +  file)
@@ -52,9 +52,7 @@ export class S3Repository {
         }
     
         // Add logging
-        console.log("File uploaded to S3 successfully");
-    
-        return response.location;
+        console.log("File uploaded to S3 successfully : " + response.location);
     };
 
     private async uploadSample() {

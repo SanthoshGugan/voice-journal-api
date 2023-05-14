@@ -3,9 +3,13 @@ import { Journal } from "../model/journal";
 import S3Repository from "../repository/S3Repository";
 import { JournalRepository } from "../repository/journalRepository";
 import AbstractService from "./abstractService";
+import { JournalLocationRepository } from "../repository/journalLocationRepository";
+import { JournalLocation, JournalLocationClass } from "../model/journalLocation";
 
 const s3Repo = new S3Repository();
 const journalRepository = new JournalRepository();
+
+const journalLocationRepository = new JournalLocationRepository();
 
 class JournalService extends AbstractService<JournalRepository, Journal, number> {
 
@@ -17,16 +21,13 @@ class JournalService extends AbstractService<JournalRepository, Journal, number>
         await s3Repo.uploadAudioToS3(fileContent, fileName);
     }
 
-    private getJournal(journalStr: string): Journal | null {
-        let journal: Journal;
-        try {
-            journal = JSON.parse(JSON.parse(journalStr));
-        } catch(error) {
-            console.log(" Error on json parsing : " + journalStr);
-            return null;
-        }
-        return journal;
+    public async addJournalLocation(journalId: number, bucket_name: string, filename: string): Promise<JournalLocation> {
+        const journalLocation: JournalLocation = new JournalLocationClass(journalId, bucket_name, filename);
+        console.log(" journalLocation : " + JSON.stringify(journalLocation));
+        return await journalLocationRepository.add(journalLocation);
     }
+
+
 };
 
 export default JournalService;
