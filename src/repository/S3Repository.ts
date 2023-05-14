@@ -16,28 +16,6 @@ export class S3Repository {
         // Add error handling
         try {
 
-            this.s3.headBucket({ Bucket: bucketName }, function (err, data) {
-                if (err) {
-                  console.log('Error:', err.code);
-                } else {
-                  console.log('Bucket is accessible!');
-                }
-              });
-
-              const paramsTest = {
-                Bucket: bucketName,
-                Key: filePath,
-                Body: file,
-              };
-              
-              this.s3.putObject(paramsTest, function (err, data) {
-                if (err) {
-                  console.log('Write access not available:', err.code);
-                } else {
-                  console.log('Write access is available!');
-                }
-              });
-
             const params: AWS.S3.PutObjectRequest = {
                 Bucket: bucketName,
                 Key: filePath,
@@ -58,6 +36,19 @@ export class S3Repository {
     private async uploadSample() {
         const file: Blob = new Blob();
         this.s3.upload
+    }
+
+    public async downloadJournalAudio(bucketName: string, fileName: string): Promise<Buffer> {
+
+        const params: AWS.S3.GetObjectRequest = {
+            Bucket: bucketName,
+            Key: fileName
+        };
+
+        const response = await this.s3.getObject(params).promise();
+
+        const fileData: Buffer = response.Body as Buffer;
+        return fileData;
     }
 };
 

@@ -4,6 +4,8 @@ export const SELECT_ALL_ENTITIES = (tableName) => `SELECT * FROM ${tableName};`;
 
 export const SELECT_BY_ID = tableName => `SELECT * FROM ${tableName} where id = ?;`;
 
+export const SELECT_BY_FIELD = (tableName, field) => `SELECT * FROM ${tableName} where ${field} = ? LIMIT 1;`;
+
 export const INSERT_ENTITY = tableName => `INSERT INTO ${tableName} SET ?`
 
 export const UPDATE_ENTITY = tableName => `UPDATE ${tableName} SET ? WHERE id = ?;`;

@@ -1,5 +1,5 @@
 import { Database } from "./db";
-import { DELETE_ENTITY, INSERT_ENTITY, SELECT_ALL_ENTITIES, SELECT_BY_ID, UPDATE_ENTITY } from "./queries";
+import { DELETE_ENTITY, INSERT_ENTITY, SELECT_ALL_ENTITIES, SELECT_BY_FIELD, SELECT_BY_ID, UPDATE_ENTITY } from "./queries";
 
 export class AbstractRepository<T, I> {
 
@@ -20,6 +20,12 @@ export class AbstractRepository<T, I> {
         const entity: T | null = await this.db.query(SELECT_BY_ID(this.tableName), [id]);
         return entity;
     };
+
+    public async getByField(field: string, value: any): Promise<T | null> {
+        console.log(" field select query : " + SELECT_BY_FIELD(this.tableName, field));
+        const entity: T | null = await this.db.query(SELECT_BY_FIELD(this.tableName, field), [value]);
+        return entity;
+    }
 
     public async add(entity: T): Promise<T> {
         const result: any = await this.db.query(INSERT_ENTITY(this.tableName), [entity]);

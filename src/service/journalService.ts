@@ -26,7 +26,13 @@ class JournalService extends AbstractService<JournalRepository, Journal, number>
         console.log(" journalLocation : " + JSON.stringify(journalLocation));
         return await journalLocationRepository.add(journalLocation);
     }
-
+    
+    public async downloadAudio(journal_id: number): Promise<Buffer> {
+        const journalLocation = await journalLocationRepository.getByField('journal_id', journal_id)
+        const { s3_bucket_name, s3_file_name } = journalLocation[0];
+        const journalAudio: Buffer = await s3Repo.downloadJournalAudio(s3_bucket_name, s3_file_name);
+        return journalAudio;
+    }
 
 };
 

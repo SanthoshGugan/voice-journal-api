@@ -54,7 +54,15 @@ class JournalController extends AbstractController<JournalService, Journal, numb
             res.status(201).json(`{ message : "Audio file uploaded"`)
         });
 
-    }
+    };
+
+    public async downloadJournal(req: Request, res: Response) {
+        const journal_id = req.params.journal_id as unknown;
+        const journalAudio: Buffer = await journalService.downloadAudio(journal_id as number);
+
+        res.setHeader('Content-Type', 'audio/mpeg');
+        res.send(journalAudio);
+    };
 
 };
 

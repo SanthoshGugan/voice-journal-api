@@ -20,25 +20,22 @@ router.post('/upload', (req: Request, res: Response) => {
     journalController.uploadAudio(req, res);
 });
 
-// router.get('/download/:filename', (req: Request, res: Response) => {
-
-//     const filename = req.params.filename;
-//     const filePath = path.join(UPLOADS_DIR, filename);
-
-//     if (!fs.existsSync(filePath)) {
-//         return res.status(400).json({ "message": "File not found!"});
-//     }
-
-//     res.setHeader('Content-Type', 'audio/mpeg');
-//     res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
-
-//     const fileStream = fs.createReadStream(filePath);
-//     fileStream.pipe(res);
-// });
+router.get('/download/:journal_id', (req: Request, res: Response) => {
+  journalController.downloadJournal(req, res);
+})
 
 router.post('/', async (req, res) => {
     await journalController.add(req, res);
 
+})
+
+router.get('/', async (req, res) => {
+  await journalController.getAll(req, res);
+})
+
+
+router.get('/:id', async (req, res) => {
+  await journalController.getById(req, res);
 })
 
 
