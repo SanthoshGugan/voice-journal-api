@@ -4,7 +4,7 @@ import fileUpload from 'express-fileupload';
 
 import dotenv from 'dotenv';
 
-import audioRouter from './audioRouter';
+import audioRouter from './journalRouter';
 import userRoute from './routes/userRoute';
 
 import userController from './controller/userController'; 
@@ -31,7 +31,7 @@ app.get(`/${SERVICE_NAME}/${VERSION}/audio/upload`, (req: Request, res: Response
     res.status(201).json({message: "uploaded"});
 });
 
-app.use(`/${SERVICE_NAME}/${VERSION}/audio`, audioRouter)
+app.use(`/${SERVICE_NAME}/${VERSION}/journal`, audioRouter)
 
 app.use(`/${SERVICE_NAME}/${VERSION}/user`, userRoute);
 

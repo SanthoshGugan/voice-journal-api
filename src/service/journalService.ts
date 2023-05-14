@@ -13,11 +13,8 @@ class JournalService extends AbstractService<JournalRepository, Journal, number>
         super(journalRepository);
     }
 
-    public async addJournal(fileName: string, fileContent, journalStr: string): Promise<Journal> {
-        const journal: Journal = this.getJournal(journalStr);
-        const insertedJournal = await journalRepository.add(journal);
+    public async uploadAudio(fileName: string, fileContent): Promise<void> {
         await s3Repo.uploadAudioToS3(fileContent, fileName);
-        return insertedJournal;
     }
 
     private getJournal(journalStr: string): Journal | null {
