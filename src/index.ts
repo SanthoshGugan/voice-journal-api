@@ -4,8 +4,9 @@ import fileUpload from 'express-fileupload';
 
 import dotenv from 'dotenv';
 
-import audioRouter from './journalRouter';
+import audioRouter from './routes/journalRouter';
 import userRoute from './routes/userRoute';
+import tagRouter from './routes/tagRouter';
 
 import userController from './controller/userController'; 
 
@@ -34,6 +35,8 @@ app.get(`/${SERVICE_NAME}/${VERSION}/audio/upload`, (req: Request, res: Response
 app.use(`/${SERVICE_NAME}/${VERSION}/journal`, audioRouter)
 
 app.use(`/${SERVICE_NAME}/${VERSION}/user`, userRoute);
+
+app.use(`/${SERVICE_NAME}/${VERSION}/tags`, tagRouter);
 
 app.listen(port, () => {
     console.log(`Server listening at ${port}`);

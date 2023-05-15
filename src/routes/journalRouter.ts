@@ -1,8 +1,8 @@
 import express, { Request, Response } from 'express';
 import fs from 'fs';
 import path from 'path';
-import JournalController from './controller/journalController';
-import JournalService from './service/journalService';
+import JournalController from '../controller/journalController';
+import JournalService from '../service/journalService';
 
 const router = express.Router();
 const journalController = new JournalController();
