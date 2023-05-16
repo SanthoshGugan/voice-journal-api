@@ -45,29 +45,19 @@ bash
 The backend exposes the following API endpoints:
 
 - User Authentication:
-    /api/register: Register a new user. (mvp)
-    /api/login: Authenticate a user and generate a token for authorization.
-    /api/logout: Invalidate the user's token and log them out.
+    POST /user/register: Register a new user. (mvp)
+    GET /user/login: Authenticate a user and generate a token for authorization. (mvp)
+    GET /user/logout: Invalidate the user's token and log them out. (mvp)
 
 - Audio Journal Management:
-    /api/journals: Retrieve a list of the user's audio journals.
-    /api/journals/:id: Get details of a specific audio journal.
-    /api/journals/:id/update: Update an existing audio journal.
-    /api/journals/:id/delete: Delete a specific audio journal.
 
-<!-- - Audio File Management:
-    /api/audio/upload: Upload an audio file for a journal.
-    /api/audio/:id/download: Download the audio file for a journal.
-    /api/audio/:id/delete: Delete the audio file for a journal. -->
+    POST /user/journal/upload : Upload Audio of journal to s3.
+    GET  /user/journal/download/:id: Download Audio of journal from S3.
+    POST /user/journal/metadata: post journal information .
+    GET  /user/journal/:id: Get specific Journal information.
 
-- Metadata and Tags:
-    /api/journals/:id/tags: Retrieve tags associated with a journal.
-    /api/tags: Get a list of all available tags.
-    /api/tags/:id/journals: Get journals associated with a specific tag.
-
-- Search Functionality:
-    /api/journals/search: Search for journals based on keywords or tags.
-
-- User Profile:
-    /api/profile: Retrieve the user's profile information.
-    /api/profile/update: Update the user's profile details.
+- Tags:
+    POST /tags/: Add a new tag for the user.
+    GET  /tags/:id: Get tag by tag id
+    POST /tags/journal: Add tags to journal
+    GET  /tags/:tag_name/journal: Get journals associated with a specific tag.

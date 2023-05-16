@@ -11,8 +11,12 @@ router.get('/', async (req: Request, res: Response) => {
 router.get('/:id', async (req: Request, res: Response) => {
     await userController.getById(req, res)});
 
-router.post('/', async (req: Request, res: Response) => {
+router.post('/register', async (req: Request, res: Response) => {
     await userController.add(req, res);
 });
+
+// login user
+
+// logout user
 
 export default router;

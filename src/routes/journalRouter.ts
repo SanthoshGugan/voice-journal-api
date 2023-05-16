@@ -2,7 +2,6 @@ import express, { Request, Response } from 'express';
 import fs from 'fs';
 import path from 'path';
 import JournalController from '../controller/journalController';
-import JournalService from '../service/journalService';
 
 const router = express.Router();
 const journalController = new JournalController();
@@ -37,6 +36,13 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   await journalController.getById(req, res);
 })
+
+// Delete journal
+
+// Delete journal audio
+
+// Update Journal
+
 
 
 export default router;
