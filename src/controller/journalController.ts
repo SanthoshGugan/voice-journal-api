@@ -35,14 +35,15 @@ class JournalController extends AbstractController<JournalService, Journal, numb
             console.log(" Content disposition : " + contentDisposition);
             const filenameMatch = /filename="([^"]+)"/.exec(contentDisposition as string);
 
-            const journalId = req.headers['journal_id'];
+            const journalId = req.headers['Journal-Id'];
+            console.log(" Journal ID " + req.headers['Journal-Id']);
 
             if (!filenameMatch) {
                 return res.status(400).send('No Audio File not found!');
             }
 
             if (!journalId) {
-                return res.status(400).send('journal_id is required in header');
+                return res.status(400).send('journal-id is required in header');
             }
 
             const filename = filenameMatch[1];

@@ -3,6 +3,7 @@ import AWS from 'aws-sdk';
 import fileUpload from 'express-fileupload';
 
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 import audioRouter from './routes/journalRouter';
 import userRoute from './routes/userRoute';
@@ -24,6 +25,7 @@ AWS.config.update({
     region: process.env.AWS_REGION,
 });
 
+app.use(cors());
 app.use(fileUpload())
 app.use(express.json())
 
