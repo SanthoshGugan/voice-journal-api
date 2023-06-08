@@ -19,18 +19,18 @@ export class S3Repository {
             const params: AWS.S3.PutObjectRequest = {
                 Bucket: bucketName,
                 Key: filePath,
-                Body: file as Blob,
+                Body: file,
               };
             
-              response = await this.s3.upload(params).promise();
+              response = await this.s3.upload(params);
         } catch (error) {
             console.log(" file type on error : " + typeof file)
-            console.log(" file type on error : " +  file)
             throw new Error("Error uploading file to S3" + error);
         }
     
         // Add logging
-        console.log("File uploaded to S3 successfully : " + response.location);
+        console.log("File uploaded to S3 successfully : " + JSON.stringify(response.Location));
+        return response?.Location || '';
     };
 
     private async uploadSample() {
