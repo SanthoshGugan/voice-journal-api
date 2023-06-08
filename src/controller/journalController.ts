@@ -1,10 +1,8 @@
 import { Request, Response } from "express";
-import { Transform } from "stream";
 import fs from 'fs';
 import { Journal } from "../model/journal";
 import JournalService from "../service/journalService";
 import AbstractController from "./abstractController";
-import { extractFileName } from "../utils/journalUtils";
 import { JournalLocation } from "../model/journalLocation";
 
 const journalService = new JournalService();
@@ -35,15 +33,24 @@ class JournalController extends AbstractController<JournalService, Journal, numb
             console.log(" Content disposition : " + contentDisposition);
             const filenameMatch = /filename="([^"]+)"/.exec(contentDisposition as string);
 
-            const journalId = req.headers['Journal-Id'];
-            console.log(" Journal ID " + req.headers['Journal-Id']);
-
+            const journalId = req.headers['journal-id'];
+            const userId = req.headers['user-id'];
+            const description = req.headers['description'];
+            
             if (!filenameMatch) {
                 return res.status(400).send('No Audio File not found!');
             }
 
             if (!journalId) {
                 return res.status(400).send('journal-id is required in header');
+            }
+            
+            if (!userId) {
+                return res.status(400).send('user-id is required in header');
+            }
+
+            if (!description) {
+                return res.status(400).send('description is required in header');
             }
 
             const filename = filenameMatch[1];
